@@ -31,7 +31,7 @@ export const LoginPage = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item>
+            <Grid item xs={12}>
               <TextField
                 label="Contraseña"
                 type="password"
