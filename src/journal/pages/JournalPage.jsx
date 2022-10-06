@@ -1,13 +1,17 @@
 import React from "react";
 import { Typography } from "@mui/material";
-import { MailOutline } from "@mui/icons-material";
+import { JournalLayout } from "../Layout/JournalLayout";
 
 export const JournalPage = () => {
   return (
-    <>
-      <Typography variant="h1">JournalApp</Typography>;
-      <MailOutline />
-    </>
+    <JournalLayout>
+      <Typography>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus eos
+        magnam, modi amet cumque a dolores praesentium totam sapiente magni!
+        Amet accusamus odit perferendis necessitatibus doloribus eveniet
+        accusantium consequatur magni.
+      </Typography>
+    </JournalLayout>
   );
 };
 
