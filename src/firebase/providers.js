@@ -3,6 +3,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { FirebaseAuth } from "./config";
 
@@ -30,10 +31,27 @@ export const signInWithGoogle = async () => {
   }
 };
 
-export const registerUserWithEmail = ({ email, password, displayName }) => {
+export const registerUserWithEmail = async ({
+  email,
+  password,
+  displayName,
+}) => {
   try {
-    const resp = createUserWithEmailAndPassword(FirebaseAuth, email, password);
-    console.log(res);
+    const resp = await createUserWithEmailAndPassword(
+      FirebaseAuth,
+      email,
+      password
+    );
+    const { uid, photoURL } = resp.user;
+    await updateProfile(FirebaseAuth.currentUser, { displayName });
+
+    return {
+      ok: true,
+      uid,
+      photoURL,
+      email,
+      displayName,
+    };
   } catch (error) {
     const errorMessage = error.message;
     return {

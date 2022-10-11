@@ -1,10 +1,19 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { AuthLayout } from "../layout/AuthLayout";
-
-import { Grid, Typography, TextField, Button, Link } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Grid,
+  Typography,
+  TextField,
+  Button,
+  Link,
+  Alert,
+} from "@mui/material";
 import { useForm } from "../../hooks/useForm";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { startCreatingUserWithEmailPassword } from "../../store/auth/thunks";
+
 const formValidations = {
   email: [(value) => value.includes("@"), "El correo debe de tener un arroba"],
   password: [
@@ -14,6 +23,14 @@ const formValidations = {
   displayName: [(value) => value.length >= 1, "El nombre es requerido"],
 };
 export const RegisterPage = () => {
+  const dispatch = useDispatch();
+  const { status, errorMessage } = useSelector((state) => state.auth);
+
+  const isCheckingAuthentication = useMemo(
+    () => status === "checking",
+    [status]
+  );
+
   const [formSubmited, setFormSubmited] = useState(false);
 
   const {
@@ -25,9 +42,10 @@ export const RegisterPage = () => {
     emailValid,
     displayNameValid,
     passwordValid,
+    formState,
   } = useForm(
     {
-      displayName: "",
+      displayName: "hola",
       email: "",
       password: "",
     },
@@ -38,6 +56,8 @@ export const RegisterPage = () => {
     e.preventDefault();
     setFormSubmited(true);
     if (!isFormValid) return;
+    console.log(formState);
+    dispatch(startCreatingUserWithEmailPassword(formState));
   };
 
   return (
@@ -83,8 +103,17 @@ export const RegisterPage = () => {
             />
           </Grid>
           <Grid container spacing={2} sx={{ mt: 2, mb: 1 }}>
+            <Grid item xs={12} display={!!errorMessage ? "" : "none"}>
+              <Alert severity="error">{errorMessage}</Alert>
+            </Grid>
+
             <Grid item xs={12}>
-              <Button type="submit" variant="contained" fullWidth>
+              <Button
+                disabled={isCheckingAuthentication}
+                type="submit"
+                variant="contained"
+                fullWidth
+              >
                 Crear Cuenta
               </Button>
             </Grid>
