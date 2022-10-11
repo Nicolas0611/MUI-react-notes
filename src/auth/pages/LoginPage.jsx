@@ -3,31 +3,39 @@ import { Link as RouterLink } from "react-router-dom";
 import { AuthLayout } from "../layout/AuthLayout";
 import { useMemo } from "react";
 import { Google } from "@mui/icons-material";
-import { Grid, Typography, TextField, Button, Link } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  TextField,
+  Button,
+  Link,
+  Alert,
+} from "@mui/material";
 import { useForm } from "../../hooks/useForm";
-import { checkingAuth, startGoogleSignIn } from "../../store/auth/thunks";
+import {
+  startGoogleSignIn,
+  startLoginWithEmailPassword,
+} from "../../store/auth/thunks";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.auth);
+  const { status, errorMessage } = useSelector((state) => state.auth);
 
-  const { email, password, onInputChange } = useForm({
+  const { formState, email, password, onInputChange } = useForm({
     email: "nico.sierra@hotmail.com",
-    password: "123456",
+    password: "nscmcq99",
   });
 
   const isAuthenticated = useMemo(() => status === "checking", [status]);
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log({ email, password });
-    dispatch(checkingAuth());
+    dispatch(startLoginWithEmailPassword(formState));
   };
 
   const onGoogleSignIn = (event) => {
     event.preventDefault();
     dispatch(startGoogleSignIn());
-    console.log("Google Sign In");
   };
   return (
     <AuthLayout title="Login">
@@ -56,6 +64,9 @@ export const LoginPage = () => {
             />
           </Grid>
           <Grid container spacing={2} sx={{ mt: 2, mb: 1 }}>
+            <Grid item xs={12} display={!!errorMessage ? "" : "none"}>
+              <Alert severity="error">{errorMessage}</Alert>
+            </Grid>
             <Grid item xs={12} sm={6}>
               <Button
                 disabled={isAuthenticated}
