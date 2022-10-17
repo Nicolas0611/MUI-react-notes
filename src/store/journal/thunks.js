@@ -42,7 +42,7 @@ export const startLoadingNotes = () => {
 
 export const startSaveNotes = () => {
   return async (dispatch, getState) => {
-    dispatch(setSaving);
+    dispatch(setSaving());
     const { uid } = getState().auth;
     const { activeNote } = getState().journal;
 

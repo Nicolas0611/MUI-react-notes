@@ -9,7 +9,7 @@ import { startNewNote } from "../../store/journal/thunks";
 
 export const JournalPage = () => {
   const dispatch = useDispatch();
-  const { isSaving, activeNote } = useSelector((state) => state.journal);
+  const { activeNote } = useSelector((state) => state.journal);
 
   const onClickNewNote = () => {
     dispatch(startNewNote());
@@ -20,7 +20,6 @@ export const JournalPage = () => {
       {!!activeNote ? <NoteView /> : <NothingSelectedView />}
       <IconButton
         onClick={onClickNewNote}
-        disabled={isSaving}
         size="large"
         sx={{
           color: "white",
