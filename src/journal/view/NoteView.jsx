@@ -9,7 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
 import { useMemo, useEffect, useRef } from "react";
 import { setActiveNote } from "../../store/journal/journalSlice";
-import { startSaveNotes } from "../../store/journal/thunks";
+import {
+  startSaveNotes,
+  startUploadingFiles,
+} from "../../store/journal/thunks";
 
 export const NoteView = () => {
   const dispatch = useDispatch();
@@ -42,6 +45,8 @@ export const NoteView = () => {
 
   const onFileInputChange = ({ target }) => {
     if (target.files === 0) return;
+
+    dispatch(startUploadingFiles(target.files));
   };
   return (
     <Grid
@@ -69,12 +74,7 @@ export const NoteView = () => {
         >
           <UploadOutlined />
         </IconButton>
-        <Button
-          disabled={isSaving}
-          onClick={onSaveNote}
-          color="primary"
-          sx={{ padding: 2 }}
-        >
+        <Button onClick={onSaveNote} color="primary" sx={{ padding: 2 }}>
           <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
           Guardar
         </Button>
