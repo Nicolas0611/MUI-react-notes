@@ -22,7 +22,7 @@ To install this project follow the next steps:
 <p float="left">
   <img src="https://github.com/Nicolas0611/MUI-react-notes/blob/master/src/screenshots/01.PNG">
  <img src="https://github.com/Nicolas0611/MUI-react-notes/blob/master/src/screenshots/02.PNG">
- <img src="https://github.com/Nicolas0611/MUI-react-notes/blob/master/src/screenshots/03.PNGg">
+ <img src="https://github.com/Nicolas0611/MUI-react-notes/blob/master/src/screenshots/03.PNG">
 </p>
 
 ## Get in touch
