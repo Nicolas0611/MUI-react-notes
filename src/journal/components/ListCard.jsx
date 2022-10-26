@@ -7,20 +7,35 @@ import {
   ListItemText,
   Grid,
 } from "@mui/material";
-export const ListCard = ({ text }) => {
+import { useMemo } from "react";
+
+export const ListCard = ({
+  onSetActive,
+  title = "",
+  body,
+  id,
+  imageUrls = [],
+  date,
+}) => {
+  const newTitle = useMemo(() => {
+    return title.length > 17 ? title.substring(0, 17) + "..." : title;
+  }, [title]);
+
   return (
-    <ListItem key={text} disablePadding>
+    <ListItem
+      onClick={() => {
+        onSetActive({ title, body, id, date, imageUrls });
+      }}
+      key={id}
+      disablePadding
+    >
       <ListItemButton>
         <ListItemIcon>
           <TurnedInNot />
         </ListItemIcon>
         <Grid container>
-          <ListItemText primary={text} />
-          <ListItemText
-            secondary={
-              "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni aperiam "
-            }
-          />
+          <ListItemText primary={newTitle} />
+          <ListItemText secondary={body} />
         </Grid>
       </ListItemButton>
     </ListItem>
