@@ -1,4 +1,8 @@
-import { SaveOutlined, UploadOutlined } from "@mui/icons-material";
+import {
+  DeleteOutline,
+  SaveOutlined,
+  UploadOutlined,
+} from "@mui/icons-material";
 import { Button, Grid, Typography, TextField, IconButton } from "@mui/material";
 
 import Swal from "sweetalert2";
@@ -10,6 +14,7 @@ import { useForm } from "../../hooks/useForm";
 import { useMemo, useEffect, useRef } from "react";
 import { setActiveNote } from "../../store/journal/journalSlice";
 import {
+  startDeletingNote,
   startSaveNotes,
   startUploadingFiles,
 } from "../../store/journal/thunks";
@@ -47,6 +52,10 @@ export const NoteView = () => {
     if (target.files === 0) return;
 
     dispatch(startUploadingFiles(target.files));
+  };
+
+  const onDelete = () => {
+    dispatch(startDeletingNote());
   };
   return (
     <Grid
@@ -103,6 +112,12 @@ export const NoteView = () => {
           value={body}
           onChange={onInputChange}
         />
+      </Grid>
+      <Grid container justifyContent="end">
+        <Button onClick={onDelete} color="error">
+          <DeleteOutline />
+          Borrar
+        </Button>
       </Grid>
       <ImageGallery />
     </Grid>
