@@ -20,9 +20,9 @@ To install this project follow the next steps:
 
 ## Screenshots
 <p float="left">
-  <img src="./MUI-react-notes/src/screenshots/01.png">
- <img src="./MUI-react-notes/src/screenshots/02.png">
- <img src="./MUI-react-notes/src/screenshots/03.png">
+  <img src="https://github.com/Nicolas0611/MUI-react-notes/blob/master/src/screenshots/01.PNG">
+ <img src="https://github.com/Nicolas0611/MUI-react-notes/blob/master/src/screenshots/02.PNG">
+ <img src="https://github.com/Nicolas0611/MUI-react-notes/blob/master/src/screenshots/03.PNGg">
 </p>
 
 ## Get in touch
